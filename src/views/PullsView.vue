@@ -17,7 +17,8 @@ export default {
   },
   props: ['pr'],
   mounted() {
-    fetch(`/pulls/${this.pr}.json`)
+    const jsonDataUrl = `${import.meta.env.BASE_URL}/pulls/${this.pr}.json`;
+    fetch(jsonDataUrl)
       .then(response => response.json())
       .then(data => {
         this.diffs = data.diffs;

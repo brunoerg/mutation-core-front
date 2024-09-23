@@ -20,7 +20,8 @@ export default {
     };
   },
   mounted() {
-      fetch('/functional_tests.json')
+    const jsonDataUrl = `${import.meta.env.BASE_URL}functional_tests.json`;
+      fetch(jsonDataUrl)
         .then(response => response.json())
         .then(data => {
           this.diffs = data;
