@@ -20,15 +20,16 @@ export default {
     };
   },
   mounted() {
-      fetch('/source.json')
-        .then(response => response.json())
-        .then(data => {
-          this.diffs = data;
-        })
-        .catch(error => {
-          console.error('Error loading diffs:', error);
-        });
-    },
+    const jsonDataUrl = `${import.meta.env.BASE_URL}/source.json`;
+    fetch(jsonDataUrl)
+      .then(response => response.json())
+      .then(data => {
+        this.diffs = data;
+      })
+      .catch(error => {
+        console.error('Error loading diffs:', error);
+      });
+  },
 };
 </script>
 
@@ -36,6 +37,7 @@ export default {
 main {
   margin-top: 5%;
 }
+
 h1 {
   text-align: center;
 }
