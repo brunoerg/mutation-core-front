@@ -6,6 +6,7 @@ import SourceCodeView from '@/views/SourceCodeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  mode: 'history',
   routes: [
     {
       path: '/',
