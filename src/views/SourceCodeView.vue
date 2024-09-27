@@ -5,6 +5,7 @@ import Diff from '../components/Diff.vue'
 <template>
   <main>
     <h1>Surviving mutants for the current source code</h1>
+    <h2>Master branch</h2>
     <Diff :diffs="diffs" />
   </main>
 </template>
@@ -39,6 +40,10 @@ main {
 }
 
 h1 {
+  text-align: center;
+}
+
+h2 {
   text-align: center;
 }
 </style>
