@@ -9,6 +9,10 @@
 
     <!-- Display all diffs for the selected file -->
     <div v-if="selectedFile">
+      <div v-if="'mutation_score' in selectedFile" class="mutation-score">
+        <h3>Mutation Score: <b v-bind:class="score">{{ selectedFile.mutation_score * 100 }}%</b></h3>
+        <h4>See the surviving mutants below. You should write tests to kill them:</h4>
+      </div>
       <div v-for="(diff, index) in selectedFile.diffs" :key="index" class="diff-box">
         <pre v-html="parseDiff(diff)"></pre>
       </div>
@@ -33,6 +37,9 @@ export default {
     selectedFile() {
       // Get the currently selected file based on the dropdown value
       return this.diffs[this.selectedFileIndex];
+    },
+    score() {
+      return this.diffs[this.selectedFileIndex].mutation_score * 100 > 75 ? 'green' : 'red';
     }
   },
   methods: {
@@ -86,6 +93,14 @@ select {
   color: rgb(230, 158, 14);
 }
 
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
 .diff-box {
   margin-top: 5%;
   padding: 10px;
@@ -121,6 +136,14 @@ select {
   /* Ensure diff-box does not exceed the width */
   box-sizing: border-box;
   /* Ensure padding is included in the width */
+}
+
+.mutation-score h3 {
+  text-align: center;
+}
+
+.mutation-score h4 {
+  text-align: center;
 }
 
 .diff-add {
