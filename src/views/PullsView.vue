@@ -5,7 +5,7 @@ import Diff from '../components/Diff.vue'
 <template>
   <main>
     <h1>{{ pr_title }}</h1>
-    <h3>Surviving mutants</h3>
+    <h3>Head: {{ head }}</h3>
     <Diff :diffs="diffs" />
   </main>
 </template>
@@ -21,8 +21,13 @@ export default {
     fetch(jsonDataUrl)
       .then(response => response.json())
       .then(data => {
-        this.diffs = data.diffs;
+        let diffs = [];
+        for (let i of data.diffs) {
+          if (i.head == data.head) diffs.push(i);
+        }
+        this.diffs = diffs;
         this.pr_title = data.pr_title;
+        this.head = data.head;
       })
       .catch(error => {
         console.error('Error loading diffs:', error);
@@ -31,6 +36,7 @@ export default {
   data() {
     return {
       pr_title: "",
+      head: "",
       diffs: []
     };
   }
