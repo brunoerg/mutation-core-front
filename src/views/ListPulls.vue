@@ -3,6 +3,7 @@
     <h1>Mutation testing report is available for the following PRs:</h1>
     <!--<RouterLink v-for="(pull, index) in pulls" :key="index" to="`${pull}`">{{ pull }}</RouterLink>-->
     <RouterLink to="30116" class="link">p2p: Fill reconciliation sets (Erlay) attempt 2 #30116</RouterLink>
+    <RouterLink to="29415" class="link">Broadcast own transactions only via short-lived Tor or I2P connections #29415</RouterLink>
   </main>
 </template>
 
@@ -11,7 +12,8 @@ export default {
   data() {
     return {
       pulls: [
-        "p2p: Fill reconciliation sets (Erlay) attempt 2 #30116"
+        "p2p: Fill reconciliation sets (Erlay) attempt 2 #30116",
+        "Broadcast own transactions only via short-lived Tor or I2P connections #29415"
       ]
     };
   },

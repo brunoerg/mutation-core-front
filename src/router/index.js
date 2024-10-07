@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/functional'
+      redirect: '/pulls/list'
       //name: 'home',
       //component: HomeView
     },
