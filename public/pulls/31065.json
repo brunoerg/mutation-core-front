@@ -1,0 +1,18 @@
+{
+    "pr_title": "rest: Support transaction broadcast in REST interface #31065",
+    "head": "dff67a815c2780ce5328d65a77508d29d606c364",
+    "diffs": [
+        {
+            "filename": "src/rest.cpp",
+            "head": "dff67a815c2780ce5328d65a77508d29d606c364",
+            "mutation_score": 0.550,
+            "generated_at": "2024-04-10 01:00:00",
+            "diffs": [
+                "diff --git a/src/rest.cpp b/muts-pr-31065-rest-cpp/rest.mutant.8.cpp\nindex dc1f8b0c31..f413bdc6d9 100644\n--- a/src/rest.cpp\n+++ b/muts-pr-31065-rest-cpp/rest.mutant.8.cpp\n@@ -1037,7 +1037,7 @@ static bool rest_broadcast(const std::any& context, HTTPRequest* req, const std:\n \n         req->WriteHeader(\"Content-Type\", \"text/plain\");\n         req->WriteReply(HTTP_OK, tx->GetHash().GetHex() + \"\\n\");\n-        return true;\n+                return false;\n     }\n \n     default: {\n",
+                "diff --git a/src/rest.cpp b/muts-pr-31065-rest-cpp/rest.mutant.0.cpp\nindex dc1f8b0c31..cdf47c3bf7 100644\n--- a/src/rest.cpp\n+++ b/muts-pr-31065-rest-cpp/rest.mutant.0.cpp\n@@ -1010,7 +1010,7 @@ static bool rest_blockhash_by_height(const std::any& context, HTTPRequest* req,\n static bool rest_broadcast(const std::any& context, HTTPRequest* req, const std::string& str_uri_part)\n {\n     if (!CheckWarmup(req))\n-        return false;\n+                return true;\n     const std::string body = req->ReadBody();\n     std::string params;\n     const RESTResponseFormat rf = ParseDataFormat(params, str_uri_part);\n",
+                "diff --git a/src/rest.cpp b/muts-pr-31065-rest-cpp/rest.mutant.2.cpp\nindex dc1f8b0c31..d0a6175bff 100644\n--- a/src/rest.cpp\n+++ b/muts-pr-31065-rest-cpp/rest.mutant.2.cpp\n@@ -1028,7 +1028,7 @@ static bool rest_broadcast(const std::any& context, HTTPRequest* req, const std:\n         const CTransactionRef tx(MakeTransactionRef(std::move(mtx)));\n         std::string err_string;\n         NodeContext* node = GetNodeContext(context, req);\n-        if (!node) return false;\n+                if (!node) return true;\n \n         const node::TransactionError error = node::BroadcastTransaction(*node, tx, err_string, /*max_tx_fee=*/0, /*relay=*/true, /*wait_callback=*/true);\n         if (node::TransactionError::OK != error) {\n",
+                "diff --git a/src/rest.cpp b/muts-pr-31065-rest-cpp/rest.mutant.3.cpp\nindex dc1f8b0c31..72f9e2962e 100644\n--- a/src/rest.cpp\n+++ b/muts-pr-31065-rest-cpp/rest.mutant.3.cpp\n@@ -1028,7 +1028,7 @@ static bool rest_broadcast(const std::any& context, HTTPRequest* req, const std:\n         const CTransactionRef tx(MakeTransactionRef(std::move(mtx)));\n         std::string err_string;\n         NodeContext* node = GetNodeContext(context, req);\n-        if (!node) return false;\n+        \n \n         const node::TransactionError error = node::BroadcastTransaction(*node, tx, err_string, /*max_tx_fee=*/0, /*relay=*/true, /*wait_callback=*/true);\n         if (node::TransactionError::OK != error) {\n"
+            ]
+        }
+    ]
+}
