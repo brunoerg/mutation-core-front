@@ -6,6 +6,7 @@
     <RouterLink to="29415" class="link">Broadcast own transactions only via short-lived Tor or I2P connections #29415</RouterLink>
     <RouterLink to="30951" class="link">net: option to disallow v1 connection on ipv4 and ipv6 peers #30951</RouterLink>
     <RouterLink to="31065" class="link">rest: Support transaction broadcast in REST interface #31065</RouterLink>
+    <RouterLink to="30595" class="link">kernel: Introduce initial C header API #30595</RouterLink>
   </main>
 </template>
 
@@ -17,7 +18,8 @@ export default {
         "p2p: Fill reconciliation sets (Erlay) attempt 2 #30116",
         "Broadcast own transactions only via short-lived Tor or I2P connections #29415",
         "net: option to disallow v1 connection on ipv4 and ipv6 peers #30951",
-        "rest: Support transaction broadcast in REST interface #31065"
+        "rest: Support transaction broadcast in REST interface #31065",
+        "kernel: Introduce initial C header API #30595"
       ]
     };
   },
