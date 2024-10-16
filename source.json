@@ -1,6 +1,8 @@
 [
   {
     "filename": "src/wallet/coinselection.cpp",
+    "mutation_score": 0.71,
+    "head": "538ccaed004ff89ec8b2b71d8711feed624ffccc",
     "diffs": [
       "diff --git a/src/wallet/coinselection.cpp b/muts/coinselection.mutant.14.cpp\nindex cee558088f..947bf7b642 100644\n--- a/src/wallet/coinselection.cpp\n+++ b/muts/coinselection.mutant.14.cpp\n@@ -118,7 +118,7 @@ util::Result<SelectionResult> SelectCoinsBnB(std::vector<OutputGroup>& utxo_pool\n     CAmount best_waste = MAX_MONEY;\n \n     bool is_feerate_high = utxo_pool.at(0).fee > utxo_pool.at(0).long_term_fee;\n-    bool max_tx_weight_exceeded = false;\n+        bool max_tx_weight_exceeded = true;\n \n     // Depth First search loop for choosing the UTXOs\n     for (size_t curr_try = 0, utxo_pool_index = 0; curr_try < TOTAL_TRIES; ++curr_try, ++utxo_pool_index) {\n",
       "diff --git a/src/wallet/coinselection.cpp b/muts/coinselection.mutant.17.cpp\nindex cee558088f..b99220fd05 100644\n--- a/src/wallet/coinselection.cpp\n+++ b/muts/coinselection.mutant.17.cpp\n@@ -121,7 +121,7 @@ util::Result<SelectionResult> SelectCoinsBnB(std::vector<OutputGroup>& utxo_pool\n     bool max_tx_weight_exceeded = false;\n \n     // Depth First search loop for choosing the UTXOs\n-    for (size_t curr_try = 0, utxo_pool_index = 0; curr_try < TOTAL_TRIES; ++curr_try, ++utxo_pool_index) {\n+        for (size_t curr_try = 0, utxo_pool_index = 0; curr_try <= TOTAL_TRIES; ++curr_try, ++utxo_pool_index) {\n         // Conditions for starting a backtrack\n         bool backtrack = false;\n         if (curr_value + curr_available_value < selection_target || // Cannot possibly reach target with the amount remaining in the curr_available_value.\n",
@@ -24,6 +26,8 @@
   },
   {
     "filename": "src/net_processing.cpp",
+    "mutation_score": 0.78,
+    "head": "538ccaed004ff89ec8b2b71d8711feed624ffccc",
     "diffs": [
       "diff --git a/src/net_processing.cpp b/muts/net_processing.mutant.52.cpp\nindex b7d0f5360d..6d649ef2b7 100644\n--- a/src/net_processing.cpp\n+++ b/muts/net_processing.mutant.52.cpp\n@@ -3989,7 +3989,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type,\n             Assume(WITH_LOCK(\n                 tx_relay->m_tx_inventory_mutex,\n                 return tx_relay->m_tx_inventory_to_send.empty() &&\n-                       tx_relay->m_next_inv_send_time == 0s));\n+                                              tx_relay->m_next_inv_send_time != 0s));\n         }\n \n         pfrom.fSuccessfullyConnected = true;\n",
       "diff --git a/src/net_processing.cpp b/muts/net_processing.mutant.274.cpp\nindex b7d0f5360d..4fbeb393a9 100644\n--- a/src/net_processing.cpp\n+++ b/muts/net_processing.mutant.274.cpp\n@@ -5012,7 +5012,7 @@ void PeerManagerImpl::ProcessMessage(CNode& pfrom, const std::string& msg_type,\n             {\n                 LOCK(m_headers_presync_mutex);\n                 auto it = m_headers_presync_stats.find(m_headers_presync_bestpeer);\n-                if (it != m_headers_presync_stats.end()) stats = it->second;\n+                                if (it == m_headers_presync_stats.end()) stats = it->second;\n             }\n             if (stats.second) {\n                 m_chainman.ReportHeadersPresync(stats.first, stats.second->first, stats.second->second);\n",
@@ -55,6 +59,8 @@
   },
   {
     "filename": "src/addrman.cpp",
+    "mutation_score": 0.67,
+    "head": "538ccaed004ff89ec8b2b71d8711feed624ffccc",
     "diffs": [
       "diff --git a/src/addrman.cpp b/muts/addrman.mutant.66.cpp\nindex 84d228dc82..53f1a1a776 100644\n--- a/src/addrman.cpp\n+++ b/muts/addrman.mutant.66.cpp\n@@ -335,7 +335,7 @@ void AddrManImpl::Unserialize(Stream& s_)\n     // serialization.\n     uint256 supplied_asmap_checksum{m_netgroupman.GetAsmapChecksum()};\n     uint256 serialized_asmap_checksum;\n-    if (format >= Format::V2_ASMAP) {\n+        if (format > Format::V2_ASMAP) {\n         s >> serialized_asmap_checksum;\n     }\n     const bool restore_bucketing{nUBuckets == ADDRMAN_NEW_BUCKET_COUNT &&\n",
       "diff --git a/src/addrman.cpp b/muts/addrman.mutant.72.cpp\nindex 84d228dc82..9b03135a73 100644\n--- a/src/addrman.cpp\n+++ b/muts/addrman.mutant.72.cpp\n@@ -356,7 +356,7 @@ void AddrManImpl::Unserialize(Stream& s_)\n         // The entry shouldn't appear in more than\n         // ADDRMAN_NEW_BUCKETS_PER_ADDRESS. If it has already, just skip\n         // this bucket_entry.\n-        if (info.nRefCount >= ADDRMAN_NEW_BUCKETS_PER_ADDRESS) continue;\n+                if (info.nRefCount >= ADDRMAN_NEW_BUCKETS_PER_ADDRESS) break;\n \n         int bucket_position = info.GetBucketPosition(nKey, true, bucket);\n         if (restore_bucketing && vvNew[bucket][bucket_position] == -1) {\n",
