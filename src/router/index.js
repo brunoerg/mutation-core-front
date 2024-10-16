@@ -3,6 +3,7 @@ import FunctionalTestsView from '@/views/FunctionalTestsView.vue'
 import PullsView from '@/views/PullsView.vue'
 import ListPulls from '@/views/ListPulls.vue'
 import SourceCodeView from '@/views/SourceCodeView.vue'
+import UnitTestsView from '@/views/UnitTestsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/functional',
       name: 'functional tests',
       component: FunctionalTestsView
+    },
+    {
+      path: '/unit',
+      name: 'unit tests',
+      component: UnitTestsView
     },
     {
       path: '/pulls/list',

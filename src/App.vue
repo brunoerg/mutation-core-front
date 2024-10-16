@@ -9,6 +9,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <HelloWorld msg="Mutation Core" />
       <nav>
         <!--<RouterLink to="/">Home</RouterLink>-->
+        <RouterLink to="/unit">Unit tests</RouterLink>
         <RouterLink to="/functional">Functional tests</RouterLink>
         <RouterLink to="/pulls/list">Pull Requests</RouterLink>
         <RouterLink to="/source">Source Code</RouterLink>
