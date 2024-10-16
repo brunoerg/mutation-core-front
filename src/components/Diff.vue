@@ -12,7 +12,7 @@
       <div v-if="'mutation_score' in selectedFile" class="mutation-score">
         <h3>Mutation Score: <b v-bind:class="score">{{ selectedFile.mutation_score * 100 }}%</b></h3>
         <h3 v-if="'head' in selectedFile">Head: {{ selectedFile.head }}</h3>
-        <h4>See the surviving mutants below. You should write tests to kill them:</h4>
+        <h4>See the surviving mutants below. You should write tests to kill them or, in case it's a funcional or unit test, you should fix the test:</h4>
       </div>
       <div v-for="(diff, index) in selectedFile.diffs" :key="index" class="diff-box">
         <pre v-html="parseDiff(diff)"></pre>
