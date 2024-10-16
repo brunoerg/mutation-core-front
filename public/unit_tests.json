@@ -2,7 +2,7 @@
     {
         "filename": "coinselector_tests.cpp",
         "head": "0ca1d1bf69ca364393e924cf41becfde1b68126c",
-        "mutation_score": 0.7090909090909091,
+        "mutation_score": 0.70,
         "diffs": [
             "diff --git a/src/wallet/test/coinselector_tests.cpp b/muts/coinselector_tests.mutant.168.cpp\nindex eb9c349c22..13f1646da7 100644\n--- a/src/wallet/test/coinselector_tests.cpp\n+++ b/muts/coinselector_tests.mutant.168.cpp\n@@ -745,7 +745,7 @@ BOOST_AUTO_TEST_CASE(knapsack_solver_test)\n \n     // test randomness\n     {\n-        available_coins.Clear();\n+        \n         for (int i2 = 0; i2 < 100; i2++)\n             add_coin(available_coins, *wallet, COIN);\n \n",
             "diff --git a/src/wallet/test/coinselector_tests.cpp b/muts/coinselector_tests.mutant.140.cpp\nindex eb9c349c22..b1da164ecd 100644\n--- a/src/wallet/test/coinselector_tests.cpp\n+++ b/muts/coinselector_tests.mutant.140.cpp\n@@ -619,7 +619,7 @@ BOOST_AUTO_TEST_CASE(knapsack_solver_test)\n         add_coin(available_coins, *wallet,  1*COIN);\n         add_coin(available_coins, *wallet,  2*COIN);\n         add_coin(available_coins, *wallet,  3*COIN);\n-        add_coin(available_coins, *wallet,  4*COIN); // now we have 5+6+7+8+18+20+30+100+200+300+400 = 1094 cents\n+        \n         const auto result14 = KnapsackSolver(KnapsackGroupOutputs(available_coins, *wallet, filter_confirmed), 95 * CENT, CENT);\n         BOOST_CHECK(result14);\n         BOOST_CHECK_EQUAL(result14->GetSelectedValue(), 1 * COIN);  // we should get 1 BTC in 1 coin\n",
