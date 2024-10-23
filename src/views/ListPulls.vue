@@ -7,6 +7,7 @@
     <RouterLink to="30951" class="link">net: option to disallow v1 connection on ipv4 and ipv6 peers #30951</RouterLink>
     <RouterLink to="31065" class="link">rest: Support transaction broadcast in REST interface #31065</RouterLink>
     <RouterLink to="30595" class="link">kernel: Introduce initial C header API #30595</RouterLink>
+    <RouterLink to="31122" class="link">cluster mempool: Implement changeset interface for mempool #31122</RouterLink>
   </main>
 </template>
 
@@ -19,7 +20,8 @@ export default {
         "Broadcast own transactions only via short-lived Tor or I2P connections #29415",
         "net: option to disallow v1 connection on ipv4 and ipv6 peers #30951",
         "rest: Support transaction broadcast in REST interface #31065",
-        "kernel: Introduce initial C header API #30595"
+        "kernel: Introduce initial C header API #30595",
+        "cluster mempool: Implement changeset interface for mempool #31122"
       ]
     };
   },
