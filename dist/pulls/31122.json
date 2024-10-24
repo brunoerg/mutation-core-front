@@ -64,6 +64,34 @@
                 "diff --git a/src/test/rbf_tests.cpp b/muts-pr-31122-rbf_tests-cpp/rbf_tests.mutant.89.cpp\nindex 3f74dabd87..8a2f23da4c 100644\n--- a/src/test/rbf_tests.cpp\n+++ b/muts-pr-31122-rbf_tests-cpp/rbf_tests.mutant.89.cpp\n@@ -621,7 +621,7 @@ BOOST_FIXTURE_TEST_CASE(calc_feerate_diagram_rbf, TestChain100Setup)\n         changeset->StageRemoval(conflict_3_entry);\n         changeset->StageRemoval(conflict_1_child_entry);\n         changeset->StageRemoval(conflict_1_grand_child_entry);\n-        changeset->StageAddition(replacement_tx, high_fee, 0, 1, 0, false, 4, LockPoints());\n+        \n         const auto replace_cluster_size_3{changeset->CalculateChunksForRBF()};\n \n         BOOST_CHECK(!replace_cluster_size_3.has_value());\n",
                 "diff --git a/src/test/rbf_tests.cpp b/muts-pr-31122-rbf_tests-cpp/rbf_tests.mutant.66.cpp\nindex 3f74dabd87..f453de3dc1 100644\n--- a/src/test/rbf_tests.cpp\n+++ b/muts-pr-31122-rbf_tests-cpp/rbf_tests.mutant.66.cpp\n@@ -548,7 +548,7 @@ BOOST_FIXTURE_TEST_CASE(calc_feerate_diagram_rbf, TestChain100Setup)\n     const auto high_size_2 = entry_high_2->GetTxSize();\n \n     const auto low_tx_2 = make_tx(/*inputs=*/ {high_tx_2}, /*output_values=*/ {9 * COIN});\n-    AddToMempool(pool, entry.Fee(low_fee).FromTx(low_tx_2));\n+    \n     const auto entry_low_2 = pool.GetIter(low_tx_2->GetHash()).value();\n     const auto low_size_2 = entry_low_2->GetTxSize();\n \n"
             ]
+        },
+        {
+            "filename": "src/txmempool.cpp",
+            "mutation_score": 0.8,
+            "head": "32ac5cd59b1fc4819de26ce52b439317149ca5de",
+            "date": "24/10/2024 06:00:35",
+            "diffs": [
+                "diff --git a/src/txmempool.cpp b/./muts-txmempool-cpp/txmempool.mutant.2.cpp\nindex cca7c60737..0e8bfca95c 100644\n--- a/src/txmempool.cpp\n+++ b/./muts-txmempool-cpp/txmempool.mutant.2.cpp\n@@ -432,7 +432,7 @@ void CTxMemPool::AddTransactionsUpdated(unsigned int n)\n void CTxMemPool::Apply(CTxMemPoolChangeSet* changeset)\n {\n     AssertLockHeld(cs);\n-    RemoveStaged(changeset->m_to_remove, false, MemPoolRemovalReason::REPLACED);\n+    RemoveStaged(changeset->m_to_remove, true, MemPoolRemovalReason::REPLACED);\n \n     for (size_t i=0; i<changeset->m_entry_vec.size(); ++i) {\n         auto tx_entry = changeset->m_entry_vec[i];\n"
+            ]
+        },
+        {
+            "filename": "src/validation.cpp",
+            "head": "32ac5cd59b1fc4819de26ce52b439317149ca5de",
+            "mutation_score": 0.5,
+            "date": "24/10/2024 06:20:57",
+            "diffs": [
+                "diff --git a/src/validation.cpp b/./muts-validation-cpp/validation.mutant.2.cpp\nindex edce564786..75d68136fd 100644\n--- a/src/validation.cpp\n+++ b/./muts-validation-cpp/validation.mutant.2.cpp\n@@ -1386,7 +1386,7 @@ bool MemPoolAccept::SubmitPackage(const ATMPArgs& args, std::vector<Workspace>&\n         // mempool.\n         m_subpackage.m_changeset->Apply();\n         m_subpackage.m_changeset.reset();\n-        return false;\n+        return true;\n     }\n \n     std::vector<Wtxid> all_package_wtxids;\n",
+                "diff --git a/src/validation.cpp b/./muts-validation-cpp/validation.mutant.1.cpp\nindex edce564786..0c15148df6 100644\n--- a/src/validation.cpp\n+++ b/./muts-validation-cpp/validation.mutant.1.cpp\n@@ -1311,7 +1311,7 @@ void MemPoolAccept::FinalizeSubpackage(const ATMPArgs& args)\n                                       it->GetTxSize());\n         FeeFrac feerate{m_subpackage.m_total_modified_fees, int32_t(m_subpackage.m_total_vsize)};\n         uint256 tx_or_package_hash{};\n-        if (m_subpackage.m_changeset->GetTxCount() == 1) {\n+        if (m_subpackage.m_changeset->GetTxCount() != 1) {\n             const CTransaction& tx = m_subpackage.m_changeset->GetTx(0);\n             tx_or_package_hash = tx.GetHash();\n             log_string += strprintf(\"New tx %s (wtxid=%s, fees=%s, vsize=%s)\",\n"
+            ]
+        },
+        {
+            "filename": "src/txmempool.h",
+            "head": "32ac5cd59b1fc4819de26ce52b439317149ca5de",
+            "mutation_score": 0.0,
+            "date": "24/10/2024 06:32:15",
+            "diffs": [
+                "diff --git a/src/txmempool.h b/./muts-txmempool-h/txmempool.mutant.0.h\nindex d206da57c5..3354946013 100644\n--- a/src/txmempool.h\n+++ b/./muts-txmempool-h/txmempool.mutant.0.h\n@@ -808,7 +808,7 @@ public:\n             LOCK(m_pool->cs);\n             auto ret = m_pool->CalculateMemPoolAncestors(*tx, limits);\n             if (ret) m_ancestors.insert({tx, *ret});\n-            else m_ancestors.erase(tx);\n+            \n             return ret;\n         }\n \n"
+            ]
         }
     ]
 }
